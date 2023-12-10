@@ -54,8 +54,8 @@
 				m.mem_nick as memNick,
 				ROW_NUMBER() OVER (ORDER BY s.surv_no desc) as rownum
 			FROM	
-				Survey as s
-				LEFT JOIN MEMBER as m
+				survey as s
+				LEFT JOIN member as m
 				ON s.reg_id = m.mem_id
 			WHERE 	
 				useYn = 'Y'
@@ -73,8 +73,8 @@
 		SELECT 	
 			count(s.surv_no)
 		FROM	
-			Survey as s
-			LEFT JOIN MEMBER as m
+			survey as s
+			LEFT JOIN member as m
 			ON s.reg_id = m.mem_id
 		WHERE 	
 			useYn = 'Y'
@@ -95,7 +95,7 @@
 				mod_date as modDate,
 				ROW_NUMBER() OVER (ORDER BY surv_no desc) as rownum
 			FROM	
-				Survey
+				survey
 			WHERE 	
 				reg_id = #{regId}
 				AND delYn = 'N'
@@ -112,7 +112,7 @@
 		SELECT 	
 			count(*)
 		FROM	
-			Survey
+			survey
 		WHERE 	
 			reg_id = #{regId}
 			AND delYn = 'N'
@@ -131,7 +131,7 @@
 			reg_date as regDate,
 			mod_date as modDate
 		FROM	
-			Survey
+			survey
 		WHERE 	
 			surv_no = #{survNo}
 		;	
@@ -144,7 +144,7 @@
 			qust_type as qustType,
 			qust_seq as qustSeq
 		FROM	
-			SurvQust
+			survqust
 		WHERE 	
 			surv_no = #{survNo}
 		;	
@@ -155,7 +155,7 @@
 			count(*) as count,
 			answ_cont as answCont
 		FROM	
-			Answer
+			answer
 		WHERE 	
 			qust_no = #{qustNo}
 		GROUP BY answ_cont
@@ -166,7 +166,7 @@
 		SELECT 	
 			answ_long as answLong
 		FROM	
-			Answer
+			answer
 		WHERE 	
 			qust_no = #{qustNo}
 		;	
@@ -176,8 +176,8 @@
 		SELECT 	
 				m.mem_nick as memNick
 			FROM	
-				Survey as s
-				LEFT JOIN MEMBER as m
+				survey as s
+				LEFT JOIN member as m
 				ON s.reg_id = m.mem_id
 			WHERE
 				s.reg_id = #{regId}

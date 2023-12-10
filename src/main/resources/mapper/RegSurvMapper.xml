@@ -3,12 +3,12 @@
 <mapper namespace="com.JEB.survey.repository.RegSurvMapper">
 	<select id="getUserInfo" parameterType="String" resultType="String">
 		SELECT mem_nick
-		  FROM MEMBER
+		  FROM member
 		 WHERE mem_id = #{regId};
 	</select>
 
 	<insert id="insertSurv" parameterType="com.JEB.survey.model.SurveyDto">
-		INSERT INTO SURVEY( surv_title
+		INSERT INTO survey( surv_title
                            ,surv_desc
                            ,reg_id
                            ,reg_date
@@ -18,8 +18,8 @@
                     VALUES( #{survTitle}
                     	, #{survDesc}
                     	, #{regId} <!-- 나중에 regId로 변경 -->
-                    	, GETDATE()
-                    	, GETDATE()
+                    	, now()
+                    	, now()
                     	, #{useYn}
                     	);
                     	
@@ -27,10 +27,11 @@
     
     <insert id="insertSurvqust" parameterType="com.JEB.survey.model.SurvqustDto">
     	<selectKey resultType="int" keyProperty="survNo" order="BEFORE">
-        	SELECT ISNULL(MAX(surv_no),0) 
-        	  FROM SURVEY;
+        	<!-- SELECT ISNULL(MAX(surv_no),0) -->
+			SELECT IFNULL(MAX(surv_no), 0)
+			FROM survey;
         </selectKey>
-    	 INSERT INTO SURVQUST( surv_no
+    	 INSERT INTO survqust( surv_no
                            ,qust_seq
                            ,qust_cont
                            ,qust_type
@@ -44,9 +45,11 @@
 
 	<insert id="insertQustopt" parameterType="com.JEB.survey.model.QustoptDto">
 		<selectKey resultType="int" keyProperty="qustNo" order="BEFORE">
-        	SELECT ISNULL(MAX(qust_no),0) FROM SURVQUST;
+        	<!-- SELECT ISNULL(MAX(qust_no),0) -->
+			SELECT IFNULL(MAX(qust_no), 0)
+			FROM survqust;
         </selectKey>
-		INSERT INTO QUSTOPT( qust_no
+		INSERT INTO qustopt( qust_no
                            ,opt_seq
                            ,opt_cont
                           )
@@ -65,7 +68,7 @@
 			 , useYn
 			 , reg_date AS regDate
 			 , mod_date AS modDate
-		  FROM SURVEY
+		  FROM survey
 		 WHERE surv_no=#{survNo}
 		 ;
 	</select>
@@ -76,7 +79,7 @@
 			 , qust_seq AS qustSeq
 			 , qust_type AS qustType
 			 , qust_cont AS qustCont
-		  FROM SURVQUST
+		  FROM survqust
 		 WHERE surv_no=#{survNo}
 		 ;
 	</select>
@@ -86,13 +89,13 @@
 			 , opt_no AS optNo
 			 , opt_seq AS optSeq
 			 , opt_cont AS optCont
-		  FROM QUSTOPT
+		  FROM qustopt
 		 WHERE qust_no=#{qustNo}
 		 ;
 	</select>
 	
 	<update id="delOneSurvey" parameterType="int">
-		UPDATE SURVEY
+		UPDATE survey
 		   SET delYn = 'Y'
 		     , useYn = 'N'
 		 WHERE surv_no = #{survNo}
@@ -101,39 +104,39 @@
 
 	<delete id="delSurvqust" parameterType="int">
 		DELETE
-		  FROM SURVQUST
+		  FROM survqust
 		 WHERE surv_no=#{survNo}
 		;
 	</delete>
 	<delete id="delQustopt" parameterType="int">
 		DELETE
-		  FROM QUSTOPT
+		  FROM qustopt
 		 WHERE qust_no in (SELECT qust_no
-							 FROM SURVQUST
+							 FROM survqust
 							WHERE surv_no=#{surv_no}
 		 				  )
 		;
 	</delete>
 	<delete id="delAnswer" parameterType="int">
 		DELETE
-		  FROM Answer
+		  FROM answer
 		 WHERE qust_no in (SELECT qust_no
-							 FROM SURVQUST
+							 FROM survqust
 							WHERE surv_no=#{surv_no}
 		 				  )
 		;
 	</delete>
 	<update id="updateNewSurv" parameterType="com.JEB.survey.model.SurveyDto">
-		UPDATE SURVEY
+		UPDATE survey
 		   SET surv_title = #{survTitle}
 		   	 , surv_desc = #{survDesc}
-		   	 , mod_date = GETDATE()
+		   	 , mod_date = now()
 		   	 , useYn = #{useYn}
 		 WHERE surv_no = #{survNo}
 		 ;                    	
     </update>
     <insert id="insertNewSurvqust" parameterType="com.JEB.survey.model.SurvqustDto">
-    	 INSERT INTO SURVQUST( surv_no
+    	 INSERT INTO survqust( surv_no
                            ,qust_seq
                            ,qust_cont
                            ,qust_type

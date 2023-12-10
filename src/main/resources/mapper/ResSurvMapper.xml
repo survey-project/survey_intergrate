@@ -15,7 +15,7 @@
 			#{answCont},
 			#{answLong},
 			#{memId},
-			 GETDATE()
+			now()
 		)
 	</insert>
 	
@@ -27,7 +27,7 @@
 			(SELECT
 				qust_no
 			FROM
-				SURVQUST
+				survqust
 			WHERE
 				surv_no = #{survNo}
 			) AS qust
@@ -35,7 +35,7 @@
 			(SELECT
 				qust_no
 			FROM
-				ANSWER
+				answer
 			WHERE
 				mem_id = #{memId}
 			) AS answ
