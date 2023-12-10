@@ -115,6 +115,18 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<!-- Jib 플러그인 추가 -->
+            		<plugin>
+                		<groupId>com.google.cloud.tools</groupId>
+                		<artifactId>jib-maven-plugin</artifactId>
+                		<version>3.1.1</version>
+                		<configuration>
+                    		<!-- Jib 설정 추가 -->
+                    		<to>
+                        		<image>minseo218/survey:latest</image>
+                   	  	</to>
+                		</configuration>
+            		</plugin>
 		</plugins>
 	</build>
 
