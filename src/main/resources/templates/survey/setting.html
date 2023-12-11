@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<th:block layout:fragment="contents">
+
+    <script type="text/javascript">
+        // 강제 탈퇴
+        function withdrawUser(memId) {
+            if (confirm("정말로 회원을 강제 탈퇴하시겠습니까?")) {
+                // 서버에 강제 탈퇴 요청을 보내는 Ajax 코드 작성
+                // memId를 이용하여 해당 회원을 강제 탈퇴 처리
+                console.log('강제 탈퇴 Process for ' + memId);
+
+                // Ajax 예시 (jQuery 기준)
+                /*$.ajax({
+                    type: "POST",
+                    url: "/admin/withdraw",
+                    data: {memId: memId},
+                    success: function (response) {
+                        console.log("Success:", response);
+                        // 성공 시 추가 작업 수행
+                    },
+                    error: function (error) {
+                        console.error("Error:", error);
+                        // 에러 시 추가 작업 수행
+                    }
+                });*/
+            }
+        }
+    </script>
+
+    <body>
+    <div class="text-center">
+        <h2>관리자 페이지</h2>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>강제 탈퇴</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="member : ${memberList}">
+                <tr>
+                    <td th:text="${member.memId}"></td>
+                    <td th:text="${member.memNick}"></td>
+                    <td>
+                        <button type="button" class="btn btn-danger"
+                                th:onclick="'withdrawUser(\'' + ${member.memId} + '\')'">강제 탈퇴
+                        </button>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+
+    </body>
+</th:block>
+
+</html>
