@@ -1,0 +1,54 @@
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+<head>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./survList.css">
+    <script type="text/javascript" src="./js/myList.js"></script>
+    <title>My Survey</title>
+</head>
+<th:block layout:fragment="contents">
+    <body>
+    <div class="body">
+        <h2>📑 회원 관리</h2>
+        <br>
+
+        <!-- 권한 체크 -->
+        <th:block th:if="${loggedInUser != null and loggedInUser.username == 'admin'}">
+            <!-- User Information -->
+            <div class="table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>아이디</th>
+                        <th>관리</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 순회하며 회원 정보 출력 -->
+                    <th:block th:each="member : ${memberList}">
+                        <tr>
+                            <td class="username" th:text="${member.memNick}"></td>
+                            <td class="userid" th:text="${member.memId}"></td>
+                            <td>
+                                <!-- admin 계정인 경우에만 버튼 보이도록 조건 추가 -->
+                                <button type="submit" class="withdrawBtn" th:attr="data-memberId=${member.memId}">탈퇴 📤</button>
+                            </td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+        </th:block>
+
+        <!-- 권한이 없는 경우 메시지 출력 -->
+        <th:block th:unless="${loggedInUser != null and loggedInUser.username == 'admin'}">
+            <p>현재 페이지에 대한 권한이 없습니다.</p>
+        </th:block>
+    </div>
+    </body>
+</th:block>
+</html>

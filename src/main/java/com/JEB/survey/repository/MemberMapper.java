@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.JEB.survey.model.MemberDto;
 
+import java.util.List;
+
 @Mapper
 public interface MemberMapper {
 	
@@ -18,4 +20,6 @@ public interface MemberMapper {
 	
 	//아이디 중복 체크
 	public int checkId(String memId);
+
+	List<MemberDto> getAllMembers();
 }

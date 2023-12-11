@@ -2,6 +2,8 @@ package com.JEB.survey.service;
 
 import com.JEB.survey.model.MemberDto;
 
+import java.util.List;
+
 public interface MemberService {
 
 		
@@ -14,5 +16,10 @@ public interface MemberService {
 	
 	//아이디 중복 체크
 	public int checkId(String memId);
+
+	// 모든 회원 조회
+	List<MemberDto> getAllMembers();
+
+
 	
 }

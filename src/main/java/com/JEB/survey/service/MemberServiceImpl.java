@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.JEB.survey.model.MemberDto;
 import com.JEB.survey.repository.MemberMapper;
 
+import java.util.List;
+
 @Service
 public class MemberServiceImpl implements MemberService{
 
@@ -46,4 +48,12 @@ public class MemberServiceImpl implements MemberService{
 		System.out.println("serviceImpl >> " + cnt);
 		return cnt;
 	}
+
+	@Override
+	public List<MemberDto> getAllMembers() {
+		// 모든 회원 목록 조회
+		return memberMapper.getAllMembers();
+	}
+
+
 }

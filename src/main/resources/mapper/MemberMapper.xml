@@ -43,4 +43,15 @@
 		select count(*) from member where mem_id = #{memId}
 	</select>
 
+	<!-- 모든 회원 조회 -->
+	<select id="getAllMembers" resultType="com.JEB.survey.model.MemberDto">
+		SELECT
+			mem_id AS memId,
+			mem_pw AS memPw,
+			mem_nick AS memNick
+		FROM member
+	</select>
+
+
+
 </mapper>

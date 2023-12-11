@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.JEB.survey.model.MemberDto;
 import com.JEB.survey.service.MemberService;
 
+import java.util.List;
+
 //회원 컨트롤러
 @Controller
 public class MemberController {
@@ -54,4 +56,27 @@ public class MemberController {
 		  
 		return cnt;
 	}
+
+	// 내 정보 보여주기
+	@GetMapping(value="/infoForm")
+	public String info(){
+		return "member/myinfo";
+	}
+
+	// 관리자 페이지 - 모든 회원 조회
+	@GetMapping(value="/admin")
+	public String admin(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+		// 회원 목록 조회
+		List<MemberDto> memberList = memberService.getAllMembers();
+
+		// 모델에 회원 목록 추가
+		model.addAttribute("memberList", memberList);
+
+		// 로그인한 사용자 정보를 모델에 추가
+		model.addAttribute("loggedInUser", userDetails);
+
+		return "member/setting";
+	}
+
+
 }
