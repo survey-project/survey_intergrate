@@ -3,9 +3,36 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main_layout}">
 
 <head>
-    <meta charset="UTF-8">
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <style>
+        @charset "UTF-8";
+
+        h2 {
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        th {
+            text-align: center;
+            background-color: #6C757D;
+            color: white;
+        }
+
+        .btn-danger {
+            background: darkred;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <th:block layout:fragment="contents">
