@@ -24,7 +24,7 @@
                     <tr>
                         <th>이름</th>
                         <th>아이디</th>
-                        <th>관리</th>
+                        <!-- <th>관리</th> -->
                     </tr>
                     </thead>
                     <tbody>
@@ -35,7 +35,7 @@
                             <td class="userid" th:text="${member.memId}"></td>
                             <td>
                                 <!-- admin 계정인 경우에만 버튼 보이도록 조건 추가 -->
-                                <button type="submit" class="withdrawBtn" th:attr="data-memberId=${member.memId}">탈퇴 📤</button>
+                                <!-- <button type="submit" class="withdrawBtn" th:attr="data-memberId=${member.memId}">탈퇴 📤</button> -->
                             </td>
                         </tr>
                     </th:block>
