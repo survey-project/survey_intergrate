@@ -42,7 +42,7 @@ public class MemberController {
 	@PostMapping(value="/member/join")
 	public String joinMember(MemberDto memberDto) {
 		memberService.insertMem(memberDto); 
-		return "redirect:/loginForm";
+		return "redirect:/main";
 	}
 	
 	//아이디 중복체크
